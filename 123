@@ -1,0 +1,28 @@
+        public void onResponse(String response) {
+                        Log.e("MainActivity", "登录响应结果 " + response);
+                        try {
+                            JSONObject object = JSON.parseObject(response);
+                            if (object.isEmpty() || (!object.getString("code").equals("1") && !object.getString("code").equals("10000"))) {
+                                Context context = context;
+                                Toast.makeText(context, "登录失败1" + object.getString("message"), 0).show();
+                                return;
+                            }
+                            JSONObject data = JSON.parseObject(ShuanQUtil.dataDecrypt(object.getString(e.m)));
+                            data.getJSONObject("cardInfo");
+                            data.getJSONObject("surplusTime");
+                            String expireTimeStr = data.getString("expireTimeStr");
+                            Context context2 = context;
+                            Toast.makeText(context2, "登录成功 到期时间:" + expireTimeStr, 0).show();
+                            try {
+                                new Menu(context, (Activity) context);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            MainActivity.alertDialogss.dismiss();
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                            Context context3 = context;
+                            Toast.makeText(context3, "登录失败2" + e2.getMessage(), 0).show();
+                        }
+                    }
+                });
